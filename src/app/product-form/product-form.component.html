@@ -1,0 +1,41 @@
+<div class="container mt-5">
+    <h2>Create Product</h2>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="productName" class="form-label">Product Name</label>
+            <input id="productName" formControlName="productName" class="form-control" required />
+            <div *ngIf="productForm.get('productName')?.invalid && (productForm.get('productName')?.touched || submitted)" class="text-danger">Invalid Product Name</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" formControlName="description" class="form-control" required></textarea>
+            <div *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.touched || submitted)" class="text-danger">Invalid Description</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input id="price" formControlName="price" type="number" class="form-control" required />
+            <div *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.touched || submitted)" class="text-danger">Invalid Price</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select id="category" formControlName="category" class="form-select" required>
+                <option value="">Select Category</option>
+                <option value="Mobile">Mobile</option>
+                <option value="Laptop">Laptop</option>
+            </select>
+            <div *ngIf="productForm.get('category')?.invalid && (productForm.get('category')?.touched || submitted)" class="text-danger">Select a Category</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="file" class="form-label">File Upload</label>
+            <input type="file" (change)="onFileChange($event)" accept="image/*" class="form-control" required />
+            <div *ngIf="fileError" class="text-danger">{{ fileError }}</div> 
+            <div *ngIf="!selectedFile && (productForm.get('file')?.touched || submitted)" class="text-danger">File is required</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
